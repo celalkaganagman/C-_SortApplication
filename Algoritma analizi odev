@@ -1,0 +1,41 @@
+#include <stdio.h>
+#include <stdlib.h>
+
+void quicksort(int arr[], int alt, int ust) {
+    int i = alt, j = ust, temp;
+    int pivot = arr[(alt + ust) / 2];
+ 
+    while (i <= j) {                 // Diziyi ikiye ayırıyoruz.
+        while (arr[i] < pivot)
+            i++;
+        while (arr[j] > pivot)
+            j--;
+        if (i <= j) {
+            temp = arr[i];
+            arr[i] = arr[j];
+            arr[j] = temp;
+            i++;
+            j--;
+        }
+    }
+ 
+    if (alt < j)                     // Alt diziyi sıralıyoruz.
+        quicksort(arr, alt, j);
+    if (i < ust)                     // Üst diziyi sıralıyoruz.
+        quicksort(arr, i, ust);
+}
+
+int main() {
+    int i, n = 10000;
+    int arr[n];
+    
+    for (i = 0; i < n; i++)          // Diziye sayıları ekliyoruz.
+        arr[i] = rand();
+ 
+    quicksort(arr, 0, n-1);         //Diziyi quick sort ile sıralıyoruz.
+    
+    for (i = 0; i < n; i++)
+        printf("%d ", arr[i]);     //Yazdırma işlemini gerçekleştiriyoruz.
+ 
+    return 0;
+}
